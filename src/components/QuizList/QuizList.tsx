@@ -9,7 +9,14 @@ export const QuizList = () => {
         <>
             {keys.map(k => {
                 const quiz: QuizType = JSON.parse(localStorage[k]);
-                return <h1 key={quiz.id} onClick={() => navigate(`/quiz/${quiz.name}`.replace(/\s/g, ""))}>{quiz.name}</h1>
+                return (
+                    <div key={quiz.id}>
+                        <h2>{quiz.name}</h2>
+                        <button onClick={() => navigate(`/quiz/${quiz.name}`.replace(/\s/g, ""))}>Pass Quiz</button>
+                        <button onClick={() => navigate(`/edit/${quiz.name}`.replace(/\s/g, ""))}>Edit Quiz</button>
+                        <button>Delete Quiz</button>
+                    </div>
+                )
             })}
         </>
     )

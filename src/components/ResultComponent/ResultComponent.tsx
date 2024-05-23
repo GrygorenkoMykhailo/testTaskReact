@@ -6,8 +6,8 @@ export const ResultComponent = (props: {score: number, answers: string[], quizDa
     const navigate = useNavigate();
     return (
         <>
-            You spent {props.timeSpent}
-            Score: {props.score}
+            <p>You spent {props.timeSpent}</p>
+            <p>Score: {props.score}</p> 
             <button onClick={() => navigate('/')}>Go to home page</button>
             <h3>Your answers: </h3>
             {props.quizData.questions.map((q, i) => {

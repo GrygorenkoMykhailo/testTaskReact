@@ -3,27 +3,22 @@ import { useParams } from "react-router";
 import { QuizQuestion } from "../QuizQuestion";
 import { useState, useEffect } from "react";
 import { ResultComponent } from "../ResultComponent";
+import { useQuiz } from "../../hooks";
 
 export const Quiz = () => {
     const name = useParams().name;
-    const [quizData, setQuizData] = useState<QuizType | null>(null);
+    const quizData: QuizType | null = useQuiz(name);
+
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [currentAnswer, setCurrentAnswer] = useState("");
+
     const [chosenAnswers, setChosenAnswers] = useState<string[]>([]);
     const [score, setScore] = useState(0);
+
     const [seconds, setSeconds] = useState(0);
     const [minutes, setMinutes] = useState(0);
     const [secondsIntervalId, setSecondsIntervalId] = useState(0);
     const [minutesIntervalId, setMinutesIntervalId] = useState(0);
-    
-
-    useEffect(() => {
-        const quizes: string[] = JSON.parse(localStorage.names);
-        if (name && quizes.find(q => q.replace(/\s/g, "").toLowerCase() === name.toLowerCase())) {
-            const data: QuizType = JSON.parse(localStorage[name]);
-            setQuizData(data);
-        }     
-    }, [name]);
 
     useEffect(() => {
         setSecondsIntervalId(setInterval(() => {

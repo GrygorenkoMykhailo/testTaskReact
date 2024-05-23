@@ -3,6 +3,7 @@ import { QuizList } from "../QuizList/QuizList";
 import { Quiz } from "../Quiz";
 import { Route, RouterProvider, createRoutesFromElements } from "react-router";
 import { createBrowserRouter } from "react-router-dom";
+import { EditQuizComponent } from "../EditQuizComponent";
 
 const getStartQuizes = () => {
     const names = ["HtmlCssQuiz", "JavascriptQuiz", "ReactQuiz"];
@@ -29,12 +30,15 @@ const router = createBrowserRouter(
     <>
           <Route path="/" element= {<QuizList/>}></Route>
           <Route path="/quiz/:name" element= {<Quiz/>}/>    
+          <Route path="/edit/:name" element= {<EditQuizComponent/>}/>    
     </>
   )
 )
 
 export const App = () => {
-  getStartQuizes();
+  if(localStorage.length === 0){
+    getStartQuizes();
+  }
   return (
     <RouterProvider router={router}/>
   )
