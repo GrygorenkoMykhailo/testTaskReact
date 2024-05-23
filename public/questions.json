@@ -1,0 +1,52 @@
+[
+    {
+      "question": "What is React primarily used for?",
+      "answers": ["Data Science", "Server-side rendering", "Building user interfaces", "Database management"],
+      "correctAnswer": "Building user interfaces"
+    },
+    {
+      "question": "What is the command to create a new React application using Create React App?",
+      "answers": ["npx create-react-app my-app", "npm start react-app", "yarn build react-app", "npx react-new my-app"],
+      "correctAnswer": "npx create-react-app my-app"
+    },
+    {
+      "question": "Which method in a React component is called after the component is rendered for the first time?",
+      "answers": ["componentDidUpdate", "componentDidMount", "componentWillUnmount", "render"],
+      "correctAnswer": "componentDidMount"
+    },
+    {
+      "question": "What is the purpose of the useState hook in React?",
+      "answers": ["To manage side effects", "To fetch data from an API", "To handle state in a functional component", "To handle routing"],
+      "correctAnswer": "To handle state in a functional component"
+    },
+    {
+      "question": "Which of the following is true about React components?",
+      "answers": ["Components must be defined as classes", "Components return HTML elements", "Components can be either class-based or functional", "Components only render on the server side"],
+      "correctAnswer": "Components can be either class-based or functional"
+    },
+    {
+      "question": "How do you pass data from a parent component to a child component in React?",
+      "answers": ["Using state", "Using props", "Using context", "Using events"],
+      "correctAnswer": "Using props"
+    },
+    {
+      "question": "What is JSX in React?",
+      "answers": ["A server-side scripting language", "A JavaScript extension that allows writing HTML in React", "A CSS preprocessor", "A library for managing state"],
+      "correctAnswer": "A JavaScript extension that allows writing HTML in React"
+    },
+    {
+      "question": "Which of the following is used to handle side effects in functional components?",
+      "answers": ["useContext", "useEffect", "useState", "useReducer"],
+      "correctAnswer": "useEffect"
+    },
+    {
+      "question": "What is the purpose of the React key prop?",
+      "answers": ["To uniquely identify elements in an array", "To add styling to elements", "To bind event handlers", "To pass data between components"],
+      "correctAnswer": "To uniquely identify elements in an array"
+    },
+    {
+      "question": "Which of the following methods is used to update the state in a class component?",
+      "answers": ["this.setState", "this.updateState", "this.changeState", "this.modifyState"],
+      "correctAnswer": "this.setState"
+    }
+  ]
