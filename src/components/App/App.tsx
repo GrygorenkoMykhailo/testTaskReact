@@ -1,9 +1,9 @@
 import { QuizType } from "../../types"
+import { QuizList } from "../QuizList/QuizList";
 
 const getStartQuizes = () => {
-  if(localStorage.length === 0){
-    const names = ["HtmlCssQuiz", "JavascriptQuiz, ReactQuiz"];
-    localStorage.names = names;
+    const names = ["HtmlCssQuiz", "JavascriptQuiz", "ReactQuiz"];
+    localStorage.names = JSON.stringify(names);
   
     names.forEach(async (n) => {
       try{
@@ -19,15 +19,13 @@ const getStartQuizes = () => {
         throw new Error("failed to fetch local files");
       }
     });
-  }
 }
 
 export const App = () => {
   getStartQuizes();
   return (
     <>
-        
+        <QuizList/>
     </>
   )
 }
-
