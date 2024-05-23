@@ -11,14 +11,30 @@ export const Quiz = () => {
     const [currentAnswer, setCurrentAnswer] = useState("");
     const [chosenAnswers, setChosenAnswers] = useState<string[]>([]);
     const [score, setScore] = useState(0);
+    const [seconds, setSeconds] = useState(0);
+    const [minutes, setMinutes] = useState(0);
+    const [secondsIntervalId, setSecondsIntervalId] = useState(0);
+    const [minutesIntervalId, setMinutesIntervalId] = useState(0);
+    
 
     useEffect(() => {
         const quizes: string[] = JSON.parse(localStorage.names);
         if (name && quizes.find(q => q.replace(/\s/g, "").toLowerCase() === name.toLowerCase())) {
             const data: QuizType = JSON.parse(localStorage[name]);
             setQuizData(data);
-        }
+        }     
     }, [name]);
+
+    useEffect(() => {
+        setSecondsIntervalId(setInterval(() => {
+            setSeconds(s => s + 1);
+        }, 1000));
+    
+        setMinutesIntervalId(setInterval(() => {
+            setSeconds(0);
+            setMinutes(m => m + 1);
+        }, 1000 * 60));
+    }, []);
 
     const handleNextQuestion = (currentQuestion: QuizQuestionType) => {
         setCurrentQuestionIndex(prev => prev + 1);
@@ -43,12 +59,17 @@ export const Quiz = () => {
                     questionData={quizData.questions[currentQuestionIndex]}
                     callback={setCurrentAnswer}
                 />
+                <div>
+                    Your time: {(minutes < 10 ? '0' + minutes : minutes) + ':' + (seconds < 10 ? '0' + seconds : seconds)}
+                </div>
                 <button onClick={() => handleNextQuestion(quizData.questions[currentQuestionIndex])}>
                     Next
                 </button>
             </>
         );
     } else {
-        return <ResultComponent score={score} answers={chosenAnswers} quizData={quizData} />;
+        clearInterval(secondsIntervalId);
+        clearInterval(minutesIntervalId);
+        return <ResultComponent score={score} answers={chosenAnswers} quizData={quizData} timeSpent={(minutes < 10 ? '0' + minutes : minutes) + ':' + (seconds < 10 ? '0' + seconds : seconds)}/>;
     }
 };
