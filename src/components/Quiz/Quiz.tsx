@@ -25,6 +25,7 @@ export const Quiz = () => {
             return (
                 <>
                     <h1>{quizData.name}</h1>
+                    <p>Question {currentQuestionIndex + 1} of {questionsAmount}</p>
                     <QuizQuestion questionData={quizData.questions[currentQuestionIndex]} callback={setCurrentAnswer}/>
                     <button onClick={() => handleClick(quizData.questions[currentQuestionIndex])}>Next</button>
                 </>   
@@ -36,12 +37,9 @@ export const Quiz = () => {
     } 
 
     function handleClick(currentQuestion: QuizQuestionType){
-        setCurrentQuestionIndex(prev => prev + 1);
-
-        console.log(currentAnswer, " ", currentQuestion.correctAnswer)
-        
+        setCurrentQuestionIndex(prev => prev + 1); 
         if(currentAnswer === currentQuestion.correctAnswer){
-            setScore(prev => prev + 1);
+            setScore(prev => prev + currentQuestion.points);
         }
     } 
 }

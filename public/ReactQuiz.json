@@ -6,61 +6,71 @@
       "id": 21,
       "question": "What is React primarily used for?",
       "answers": ["Data Science", "Server-side rendering", "Building user interfaces", "Database management"],
-      "correctAnswer": "Building user interfaces"
+      "correctAnswer": "Building user interfaces",
+      "points": 2
     },
     {
       "id": 22,
       "question": "What is the command to create a new React application using Create React App?",
       "answers": ["npx create-react-app my-app", "npm start react-app", "yarn build react-app", "npx react-new my-app"],
-      "correctAnswer": "npx create-react-app my-app"
+      "correctAnswer": "npx create-react-app my-app",
+      "points": 2
     },
     {
       "id": 23,
       "question": "Which method in a React component is called after the component is rendered for the first time?",
       "answers": ["componentDidUpdate", "componentDidMount", "componentWillUnmount", "render"],
-      "correctAnswer": "componentDidMount"
+      "correctAnswer": "componentDidMount",
+      "points": 2
     },
     {
       "id": 24,
       "question": "What is the purpose of the useState hook in React?",
       "answers": ["To manage side effects", "To fetch data from an API", "To handle state in a functional component", "To handle routing"],
-      "correctAnswer": "To handle state in a functional component"
+      "correctAnswer": "To handle state in a functional component",
+      "points": 2
     },
     {
       "id": 25,
       "question": "Which of the following is true about React components?",
       "answers": ["Components must be defined as classes", "Components return HTML elements", "Components can be either class-based or functional", "Components only render on the server side"],
-      "correctAnswer": "Components can be either class-based or functional"
+      "correctAnswer": "Components can be either class-based or functional",
+      "points": 2
     },
     {
       "id": 26,
       "question": "How do you pass data from a parent component to a child component in React?",
       "answers": ["Using state", "Using props", "Using context", "Using events"],
-      "correctAnswer": "Using props"
+      "correctAnswer": "Using props",
+      "points": 2
     },
     {
       "id": 27,
       "question": "What is JSX in React?",
       "answers": ["A server-side scripting language", "A JavaScript extension that allows writing HTML in React", "A CSS preprocessor", "A library for managing state"],
-      "correctAnswer": "A JavaScript extension that allows writing HTML in React"
+      "correctAnswer": "A JavaScript extension that allows writing HTML in React",
+      "points": 2
     },
     {
       "id": 28,
       "question": "Which of the following is used to handle side effects in functional components?",
       "answers": ["useContext", "useEffect", "useState", "useReducer"],
-      "correctAnswer": "useEffect"
+      "correctAnswer": "useEffect",
+      "points": 2
     },
     {
       "id": 29,
       "question": "What is the purpose of the React key prop?",
       "answers": ["To uniquely identify elements in an array", "To add styling to elements", "To bind event handlers", "To pass data between components"],
-      "correctAnswer": "To uniquely identify elements in an array"
+      "correctAnswer": "To uniquely identify elements in an array",
+      "points": 2
     },
     {
       "id": 30,
       "question": "Which of the following methods is used to update the state in a class component?",
       "answers": ["this.setState", "this.updateState", "this.changeState", "this.modifyState"],
-      "correctAnswer": "this.setState"
+      "correctAnswer": "this.setState",
+      "points": 2
     }
   ]
 }

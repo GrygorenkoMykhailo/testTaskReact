@@ -6,61 +6,71 @@
       "id": 11,
       "question": "Which of the following is a JavaScript data type?",
       "answers": ["Number", "Class", "Module", "Package"],
-      "correctAnswer": "Number"
+      "correctAnswer": "Number",
+      "points": 2
     },
     {
       "id": 12,
       "question": "What is the output of `typeof null` in JavaScript?",
       "answers": ["'null'", "'undefined'", "'object'", "'function'"],
-      "correctAnswer": "'object'"
+      "correctAnswer": "'object'",
+      "points": 2
     },
     {
       "id": 13,
       "question": "Which company developed JavaScript?",
       "answers": ["Microsoft", "Sun Microsystems", "Oracle", "Netscape"],
-      "correctAnswer": "Netscape"
+      "correctAnswer": "Netscape",
+      "points": 2
     },
     {
       "id": 14,
       "question": "What is the purpose of the `Array.prototype.map` method?",
       "answers": ["To filter an array", "To reduce an array", "To transform each element in an array", "To sort an array"],
-      "correctAnswer": "To transform each element in an array"
+      "correctAnswer": "To transform each element in an array",
+      "points": 2
     },
     {
       "id": 15,
       "question": "Which statement is true about 'use strict'?",
       "answers": ["It is used to enable strict mode in JavaScript", "It is used to disable strict mode in JavaScript", "It is used to declare a variable in strict mode", "It is used to import strict mode"],
-      "correctAnswer": "It is used to enable strict mode in JavaScript"
+      "correctAnswer": "It is used to enable strict mode in JavaScript",
+      "points": 2
     },
     {
       "id": 16,
       "question": "What is the correct syntax to create a new promise?",
       "answers": ["new Promise()", "new Promise((resolve, reject) => {})", "new Promise(resolve, reject => {})", "new Promise(resolve, reject)"],
-      "correctAnswer": "new Promise((resolve, reject) => {})"
+      "correctAnswer": "new Promise((resolve, reject) => {})",
+      "points": 2
     },
     {
       "id": 17,
       "question": "Which of the following is not a JavaScript framework?",
       "answers": ["Angular", "React", "Vue", "Django"],
-      "correctAnswer": "Django"
+      "correctAnswer": "Django",
+      "points": 2
     },
     {
       "id": 18,
       "question": "What is the output of `console.log(2 + '2')`?",
       "answers": ["22", "4", "NaN", "undefined"],
-      "correctAnswer": "22"
+      "correctAnswer": "22",
+      "points": 2
     },
     {
       "id": 19,
       "question": "Which method is used to convert a JSON object to a string?",
       "answers": ["JSON.parse()", "JSON.stringify()", "JSON.convert()", "JSON.toString()"],
-      "correctAnswer": "JSON.stringify()"
+      "correctAnswer": "JSON.stringify()",
+      "points": 2
     },
     {
       "id": 20,
       "question": "What will be the output of `console.log([] + [])`?",
       "answers": ["[]", "''", "undefined", "null"],
-      "correctAnswer": "''"
+      "correctAnswer": "''",
+      "points": 2
     }
   ]
 }

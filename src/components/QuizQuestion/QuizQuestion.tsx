@@ -2,7 +2,7 @@ import { QuizQuestionType } from "../../types"
 import { useEffect } from "react";
 
 export const QuizQuestion = (props: { questionData: QuizQuestionType, callback: (answer: string) => void }) => {
-    
+
     useEffect(() => {
         const defaultAnswer = document.querySelector('input[name="answer"]:checked') as HTMLInputElement;
         if (defaultAnswer) {
@@ -16,7 +16,7 @@ export const QuizQuestion = (props: { questionData: QuizQuestionType, callback: 
           <ul>
             {props.questionData.answers.map((answer, index) => (
               <li key={index}>
-                <input type="radio" id={`answer${index}`} name="answer" value={answer} onChange={(e) => props.callback(e.target.value)}/>
+                <input type="radio" name="answer" value={answer} onChange={(e) => props.callback(e.target.value)}/>
                 <label htmlFor={`answer${index}`}>{answer}</label>
               </li>
             ))}

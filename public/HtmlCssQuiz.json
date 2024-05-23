@@ -6,61 +6,71 @@
       "id": 1,
       "question": "What does HTML stand for?",
       "answers": ["Hyper Text Markup Language", "Home Tool Markup Language", "Hyperlinks and Text Markup Language", "Hyperlinking Text Marking Language"],
-      "correctAnswer": "Hyper Text Markup Language"
+      "correctAnswer": "Hyper Text Markup Language",
+      "points": 2
     },
     {
       "id": 2,
       "question": "Which HTML tag is used to define an internal style sheet?",
       "answers": ["<style>", "<script>", "<css>", "<link>"],
-      "correctAnswer": "<style>"
+      "correctAnswer": "<style>",
+      "points": 2
     },
     {
       "id": 3,
       "question": "What is the purpose of the `alt` attribute in an `<img>` tag?",
       "answers": ["To specify the alignment of the image", "To provide alternative text for the image", "To specify the height of the image", "To specify the width of the image"],
-      "correctAnswer": "To provide alternative text for the image"
+      "correctAnswer": "To provide alternative text for the image",
+      "points": 2
     },
     {
       "id": 4,
       "question": "Which CSS property is used to change the text color of an element?",
       "answers": ["color", "text-color", "font-color", "background-color"],
-      "correctAnswer": "color"
+      "correctAnswer": "color",
+      "points": 2
     },
     {
       "id": 5,
       "question": "What is the default display value of a `<div>` element?",
       "answers": ["inline", "block", "inline-block", "flex"],
-      "correctAnswer": "block"
+      "correctAnswer": "block",
+      "points": 2
     },
     {
       "id": 6,
       "question": "Which CSS property controls the text size?",
       "answers": ["font-size", "text-style", "font-style", "text-size"],
-      "correctAnswer": "font-size"
+      "correctAnswer": "font-size",
+      "points": 2
     },
     {
       "id": 7,
       "question": "What does CSS stand for?",
       "answers": ["Creative Style Sheets", "Cascading Style Sheets", "Computer Style Sheets", "Colorful Style Sheets"],
-      "correctAnswer": "Cascading Style Sheets"
+      "correctAnswer": "Cascading Style Sheets",
+      "points": 2
     },
     {
       "id": 8,
       "question": "Which HTML attribute specifies an alternate text for an image, if the image cannot be displayed?",
       "answers": ["alt", "title", "src", "longdesc"],
-      "correctAnswer": "alt"
+      "correctAnswer": "alt",
+      "points": 2
     },
     {
       "id": 9,
       "question": "In CSS, how do you select an element with the class name 'example'?",
       "answers": [".example", "#example", "example", "*example"],
-      "correctAnswer": ".example"
+      "correctAnswer": ".example",
+      "points": 2
     },
     {
       "id": 10,
       "question": "Which HTML tag is used to define an unordered list?",
       "answers": ["<ul>", "<ol>", "<li>", "<list>"],
-      "correctAnswer": "<ul>"
+      "correctAnswer": "<ul>",
+      "points": 2
     }
   ]
 }
