@@ -8,21 +8,20 @@ export const Quiz = () => {
     const quizes: string[] = JSON.parse(localStorage.names);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
 
-    if(!quizName || !quizes.find(q => q === quizName)){
+    if(!quizName || !quizes.find(q => q.replace(/\s/g, "").toLowerCase() === quizName.toLowerCase())){
         return (
             <>
                 ErrorPage
             </>
         )
     }else{
-        const quizData: QuizType = JSON.parse(localStorage[quizName]);
-        const questionIndex = currentQuestionIndex;
-        () => setCurrentQuestionIndex(prev => prev++);
+        const quizData: QuizType = JSON.parse(localStorage[quizName]);     
         return (
             <>
                 <h1>{quizData.name}</h1>
-                <QuizQuestion questionData={quizData.questions[questionIndex]}/>
-            </>
+                <QuizQuestion questionData={quizData.questions[currentQuestionIndex]}/>
+                <button onClick={() => setCurrentQuestionIndex(prev => prev + 1)}>Next</button>
+            </>   
         )
     } 
 }
