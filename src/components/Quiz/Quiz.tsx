@@ -1,15 +1,12 @@
-import { QuizType } from "../../types"
+//import { QuizType } from "../../types"
+import { useParams } from "react-router"
 
-export const Quiz = (props: { quizData: QuizType } ) => {
+export const Quiz = () => {
+    const params = useParams();
+    console.log(params);
     return (
         <>
-            <h1>{props.quizData.name}</h1>
-            {props.quizData.questions.map(q => {
-                return <div key={q.id}>
-                    <h3>{q.question}</h3>
-                    {q.answers.map(a => a)}
-                </div>
-            })}
+            quiz)
         </>
     )
 }

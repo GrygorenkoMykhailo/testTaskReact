@@ -1,5 +1,8 @@
 import { QuizType } from "../../types"
 import { QuizList } from "../QuizList/QuizList";
+import { Quiz } from "../Quiz";
+import { Route, RouterProvider, createRoutesFromElements } from "react-router";
+import { createBrowserRouter } from "react-router-dom";
 
 const getStartQuizes = () => {
     const names = ["HtmlCssQuiz", "JavascriptQuiz", "ReactQuiz"];
@@ -21,11 +24,18 @@ const getStartQuizes = () => {
     });
 }
 
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <>
+          <Route path="/" element= {<QuizList/>}></Route>
+          <Route path="/quiz/:name" element= {<Quiz/>}/>    
+    </>
+  )
+)
+
 export const App = () => {
   getStartQuizes();
   return (
-    <>
-        <QuizList/>
-    </>
+    <RouterProvider router={router}/>
   )
 }
