@@ -1,4 +1,6 @@
-[
+{
+  "name": "React Quiz",
+  "questions": [
     {
       "question": "What is React primarily used for?",
       "answers": ["Data Science", "Server-side rendering", "Building user interfaces", "Database management"],
@@ -50,3 +52,4 @@
       "correctAnswer": "this.setState"
     }
   ]
+}

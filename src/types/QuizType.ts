@@ -1,5 +1,6 @@
+import { QuizQuestionType } from "./QuizQuestionType"
+
 export type QuizType = {
-    question: string,
-    answers: string[],
-    correctAnswer: string,
+    name: string,
+    questions: QuizQuestionType[],
 }

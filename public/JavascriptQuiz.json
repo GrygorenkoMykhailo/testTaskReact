@@ -1,4 +1,6 @@
-[
+{
+  "name": "Javascript Quiz",
+  "questions": [
     {
       "question": "Which of the following is a JavaScript data type?",
       "answers": ["Number", "Class", "Module", "Package"],
@@ -50,3 +52,4 @@
       "correctAnswer": "''"
     }
   ]
+}
