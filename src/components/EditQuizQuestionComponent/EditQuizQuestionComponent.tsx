@@ -82,7 +82,6 @@ export const EditQuizQuestionComponent = (props: { questionData: QuizQuestionTyp
                         onChange={() => handleChangeCorrectAnswer(i)}
                     />
                     <button onClick={() =>  {
-                            handleChangeCorrectAnswer(i);
                             handleChangeAnswerText(i);
                         }
                     }>Save</button>
