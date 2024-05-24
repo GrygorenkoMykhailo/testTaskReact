@@ -1,14 +1,19 @@
 
-import { useNavigate } from "react-router"
+import { Link } from "react-router-dom";
 import { QuizType } from "../../types";
 
 export const ResultComponent = (props: {score: number, answers: string[], quizData: QuizType, timeSpent: string}) => {
-    const navigate = useNavigate();
+    let maxScore = 0;
+
+    props.quizData.questions.forEach(q => {
+        maxScore += q.points;
+    })
+
     return (
         <>
             <p>You spent {props.timeSpent}</p>
-            <p>Score: {props.score}</p> 
-            <button onClick={() => navigate('/')}>Go to home page</button>
+            <p>Score: {props.score}/{maxScore}</p> 
+            <Link to="/">Go to home page</Link>
             <h3>Your answers: </h3>
             {props.quizData.questions.map((q, i) => {
                 return( 
