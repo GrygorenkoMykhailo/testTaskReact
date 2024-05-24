@@ -5,11 +5,13 @@ import { EditQuizQuestionComponent } from "../EditQuizQuestionComponent";
 import { Link } from "react-router-dom";
 import { AddQuizQuestionComponent } from "../AddQuizQuestionComponent";
 import { useRef } from "react";
+import { useNavigate } from "react-router";
 
 export const EditQuizComponent = () => {
     const name = useParams().name;
     const quizData: QuizType | null = useQuiz(name);
     const quizNameRef = useRef<HTMLInputElement | null>(null);
+    const navigate = useNavigate();
 
     if (!name || !quizData) {
         return <>ErrorPage </>;
@@ -26,6 +28,7 @@ export const EditQuizComponent = () => {
             localStorage.names = JSON.stringify(names);
             quiz.name = newName;
             localStorage.setItem(newName.replace(/\s/g, ""), JSON.stringify(quiz));   
+            navigate("/edit/" + newName.replace(/\s/g, ""));
         }
     }
 
@@ -39,7 +42,7 @@ export const EditQuizComponent = () => {
             <button onClick={handleChangeQuizName}>Save</button>
             <Link to="/">Go to home page</Link>
             {quizData.questions.map((q, i) => <EditQuizQuestionComponent questionData={q} key={i} testName={name}/>)}
-            <AddQuizQuestionComponent/>
+            <AddQuizQuestionComponent quizData={quizData}/>
         </div>
     )
 }   
