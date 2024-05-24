@@ -9,26 +9,29 @@ import { QuizType } from "../../types";
 
 export const EditQuizComponent = () => {
     const name = useParams().name;
+
+    if(!name || !JSON.parse(localStorage.names).find((n: string) => n === name)){
+        throw new Error();
+    }
+
     const [quizData, setQuizData] = useQuiz(name);
     const quizNameRef = useRef<HTMLInputElement | null>(null);
     const navigate = useNavigate();
 
-    if (!name || !quizData) {
-        return <>ErrorPage</>;
-    }
-
     const handleChangeQuizName = () => {
         const newName = quizNameRef.current?.value;
         if (newName) {
-            const quiz = { ...quizData };
-            localStorage.removeItem(quizData.name.replace(/\s/g, ""));
-            let names: string[] = JSON.parse(localStorage.names);
-            names = names.filter(n => n !== quiz.name.replace(/\s/g, ""));
-            names.push(newName.replace(/\s/g, ""));
-            localStorage.names = JSON.stringify(names);
-            quiz.name = newName;
-            localStorage.setItem(newName.replace(/\s/g, ""), JSON.stringify(quiz));   
-            navigate("/edit/" + newName.replace(/\s/g, ""));
+            if(quizData){
+                const quiz = { ...quizData };
+                localStorage.removeItem(quizData.name.replace(/\s/g, ""));
+                let names: string[] = JSON.parse(localStorage.names);
+                names = names.filter(n => n !== quiz.name.replace(/\s/g, ""));
+                names.push(newName.replace(/\s/g, ""));
+                localStorage.names = JSON.stringify(names);
+                quiz.name = newName;
+                localStorage.setItem(newName.replace(/\s/g, ""), JSON.stringify(quiz));   
+                navigate("/edit/" + newName.replace(/\s/g, ""));
+            }    
         }
     };
 
@@ -36,6 +39,9 @@ export const EditQuizComponent = () => {
         setQuizData(newQuizData);
     };
 
+    if(!quizData){
+        return <>Loading...</>
+    }
     return (
         <div className="max-w-2xl mx-auto p-4 bg-white rounded shadow-md">
             <div className="mb-4">

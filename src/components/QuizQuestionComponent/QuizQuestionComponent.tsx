@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { QuizQuestionType } from "../../types";
 
-export const QuizQuestion = (props: { questionData: QuizQuestionType, callback: (answer: string) => void }) => {
+export const QuizQuestionComponent = (props: { questionData: QuizQuestionType, callback: (answer: string) => void }) => {
 
     useEffect(() => {
         const defaultAnswer = document.querySelector('input[name="answer"]:checked') as HTMLInputElement;

@@ -1,12 +1,17 @@
 import { QuizQuestionType } from "../../types";
 import { useParams } from "react-router";
-import { QuizQuestion } from "../QuizQuestion";
+import { QuizQuestionComponent } from "../QuizQuestionComponent";
 import { useState, useEffect } from "react";
 import { ResultComponent } from "../ResultComponent";
 import { useQuiz } from "../../hooks";
 
-export const Quiz = () => {
+export const QuizComponent = () => {
     const name = useParams().name;
+
+    if(!name || !JSON.parse(localStorage.names).find((n: string) => n === name)){
+        throw new Error();
+    }
+
     const [quizData] = useQuiz(name);
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -38,19 +43,18 @@ export const Quiz = () => {
         }
         setChosenAnswers(prev => [...prev, currentAnswer]);
     };
-
-    if (!quizData) {
-        return <>ErrorPage </>;
+    if(quizData === null){
+        return <>Loading...</>
     }
-
-    const questionsAmount = quizData.questions.length;
+    else{
+        const questionsAmount = quizData.questions.length;
 
     if (currentQuestionIndex < questionsAmount) {
         return (
             <div className="max-w-4xl mx-auto p-4 bg-white rounded shadow-md">
                 <h1 className="text-3xl font-bold mb-4">{quizData.name}</h1>
                 <p className="text-lg mb-4">Question {currentQuestionIndex + 1} of {questionsAmount}</p>
-                <QuizQuestion
+                <QuizQuestionComponent
                     questionData={quizData.questions[currentQuestionIndex]}
                     callback={setCurrentAnswer}
                 />
@@ -76,5 +80,6 @@ export const Quiz = () => {
                 timeSpent={(minutes < 10 ? '0' + minutes : minutes) + ':' + (seconds < 10 ? '0' + seconds : seconds)}
             />
         );
+    }
     }
 };

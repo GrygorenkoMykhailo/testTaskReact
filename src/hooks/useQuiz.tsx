@@ -8,6 +8,7 @@ export const useQuiz = (name: string | null | undefined) => {
         const quizes: string[] = JSON.parse(localStorage.names);
         if (name && quizes.find(q => q.replace(/\s/g, "").toLowerCase() === name.toLowerCase())) {
             const data: QuizType = JSON.parse(localStorage[name]);
+            console.log(data);
             setQuizData(data);
         }     
     }, [name]);

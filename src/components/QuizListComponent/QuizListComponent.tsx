@@ -2,7 +2,7 @@ import { QuizType } from "../../types"
 import { useNavigate } from "react-router";
 import { useEffect, useState, useRef } from "react";
 
-export const QuizList = () => {
+export const QuizListComponent = () => {
     const [names, setNames] = useState<string []>([]);
     const [searchName, setSearchName] = useState('');
     const navigate = useNavigate();

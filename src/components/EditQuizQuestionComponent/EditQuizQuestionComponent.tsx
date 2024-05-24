@@ -18,7 +18,7 @@ export const EditQuizQuestionComponent = (props: { questionData: QuizQuestionTyp
     }, [props.questionData]);
 
     if (!quizData) {
-        return <>ErrorComponent</>;
+        return <>Loading...</>;
     }
 
     const handleChangeAnswerText = (index: number) => {

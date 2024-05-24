@@ -1,9 +1,10 @@
 import { QuizType } from "../../types"
-import { QuizList } from "../QuizList/QuizList";
-import { Quiz } from "../Quiz";
+import { QuizListComponent } from "../QuizListComponent/QuizListComponent";
+import { QuizComponent } from "../QuizComponent";
 import { Route, RouterProvider, createRoutesFromElements } from "react-router";
 import { createBrowserRouter } from "react-router-dom";
 import { EditQuizComponent } from "../EditQuizComponent";
+import { ErrorComponent } from "../../ErrorComponent";
 
 const getStartQuizes = () => {
     const names = ["HtmlCssQuiz", "JavascriptQuiz", "ReactQuiz"];
@@ -28,9 +29,9 @@ const getStartQuizes = () => {
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-          <Route path="/" element= {<QuizList/>}></Route>
-          <Route path="/quiz/:name" element= {<Quiz/>}/>    
-          <Route path="/edit/:name" element= {<EditQuizComponent/>}/>    
+          <Route path="/" element= {<QuizListComponent/>} errorElement={<ErrorComponent/>}></Route>
+          <Route path="/quiz/:name" element= {<QuizComponent/>} errorElement={<ErrorComponent/>}/>    
+          <Route path="/edit/:name" element= {<EditQuizComponent/>} errorElement={<ErrorComponent/>}/>    
     </>
   )
 )
