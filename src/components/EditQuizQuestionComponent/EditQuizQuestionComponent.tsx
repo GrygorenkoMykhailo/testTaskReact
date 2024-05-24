@@ -28,15 +28,17 @@ export const EditQuizQuestionComponent = (props: { questionData: QuizQuestionTyp
         const newAnswer = inputRefs.current[index]?.value;
         if (newAnswer) {
             const updatedQuiz = { ...quizData };
-            updatedQuiz.questions[props.questionData.id - 1].answers[index] = newAnswer;
+            const indexOfQuestion = updatedQuiz.questions.findIndex((q) => q.id === props.questionData.id);
+            updatedQuiz.questions[indexOfQuestion].answers[index] = newAnswer;
             localStorage.setItem(props.testName.replace(/\s/g, ""), JSON.stringify(updatedQuiz));
         }   
     };
 
     const handleChangeCorrectAnswer = (index: number) => {
         setCorrectAnswerIndex(index);
-        const updatedQuiz = { ...quizData };
-        updatedQuiz.questions[props.questionData.id - 1].correctAnswer = inputRefs.current[index]?.value || "";
+        const updatedQuiz = { ...quizData }; 
+        const indexOfQuestion = updatedQuiz.questions.findIndex((q) => q.id === props.questionData.id);
+        updatedQuiz.questions[indexOfQuestion].correctAnswer = inputRefs.current[index]?.value || "";
         localStorage.setItem(props.testName.replace(/\s/g, ""), JSON.stringify(updatedQuiz));
     };
 
@@ -44,7 +46,8 @@ export const EditQuizQuestionComponent = (props: { questionData: QuizQuestionTyp
         const newQuestion = questionRef.current?.value;
             if (newQuestion) {
                 const updatedQuiz = { ...quizData };
-                updatedQuiz.questions[props.questionData.id - 1].question = newQuestion;
+                const indexOfQuestion = updatedQuiz.questions.findIndex((q) => q.id === props.questionData.id);
+                updatedQuiz.questions[indexOfQuestion].question = newQuestion;
                 localStorage.setItem(props.testName.replace(/\s/g, ""), JSON.stringify(updatedQuiz));
         }
     };
@@ -53,7 +56,8 @@ export const EditQuizQuestionComponent = (props: { questionData: QuizQuestionTyp
         const newPoints = pointsRef.current?.value;
         if(newPoints){
             const updatedQuiz = { ... quizData};
-            updatedQuiz.questions[props.questionData.id - 1].points = +newPoints;
+            const indexOfQuestion = updatedQuiz.questions.findIndex((q) => q.id === props.questionData.id);
+            updatedQuiz.questions[indexOfQuestion].points = +newPoints;
             localStorage.setItem(props.testName.replace(/\s/g, ""), JSON.stringify(updatedQuiz));
         }
     }
