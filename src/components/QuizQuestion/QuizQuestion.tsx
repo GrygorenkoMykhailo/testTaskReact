@@ -1,5 +1,5 @@
-import { QuizQuestionType } from "../../types"
 import { useEffect } from "react";
+import { QuizQuestionType } from "../../types";
 
 export const QuizQuestion = (props: { questionData: QuizQuestionType, callback: (answer: string) => void }) => {
 
@@ -11,16 +11,23 @@ export const QuizQuestion = (props: { questionData: QuizQuestionType, callback: 
     }, [props]); 
 
     return (
-        <div>
-          <p>{props.questionData.question}</p>
-          <ul>
-            {props.questionData.answers.map((answer, index) => (
-              <li key={index}>
-                <input type="radio" name="answer" value={answer} onChange={(e) => props.callback(e.target.value)}/>
-                <label htmlFor={`answer${index}`}>{answer}</label>
-              </li>
-            ))}
-          </ul>
+        <div className="mb-4">
+            <p className="text-xl font-semibold mb-2">{props.questionData.question}</p>
+            <ul className="space-y-1">
+                {props.questionData.answers.map((answer, index) => (
+                    <li key={index} className="flex items-center bg-gray-200 p-2">
+                        <input 
+                            type="radio" 
+                            name="answer" 
+                            value={answer} 
+                            id={`answer${index}`}
+                            onChange={(e) => props.callback(e.target.value)}
+                            className="mr-2"
+                        />
+                        <label htmlFor={`answer${index}`} className="text-lg">{answer}</label>
+                    </li>
+                ))}
+            </ul>
         </div>
-      );
-}
+    );
+};

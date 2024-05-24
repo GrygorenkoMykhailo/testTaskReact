@@ -47,24 +47,34 @@ export const Quiz = () => {
 
     if (currentQuestionIndex < questionsAmount) {
         return (
-            <>
-                <h1>{quizData.name}</h1>
-                <p>Question {currentQuestionIndex + 1} of {questionsAmount}</p>
+            <div className="max-w-4xl mx-auto p-4 bg-white rounded shadow-md">
+                <h1 className="text-3xl font-bold mb-4">{quizData.name}</h1>
+                <p className="text-lg mb-4">Question {currentQuestionIndex + 1} of {questionsAmount}</p>
                 <QuizQuestion
                     questionData={quizData.questions[currentQuestionIndex]}
                     callback={setCurrentAnswer}
                 />
-                <div>
-                    Your time: {(minutes < 10 ? '0' + minutes : minutes) + ':' + (seconds < 10 ? '0' + seconds : seconds)}
+                <div className="mt-4 mb-4">
+                    <p className="text-lg">Your time: {(minutes < 10 ? '0' + minutes : minutes) + ':' + (seconds < 10 ? '0' + seconds : seconds)}</p>
                 </div>
-                <button onClick={() => handleNextQuestion(quizData.questions[currentQuestionIndex])}>
+                <button 
+                    className="bg-blue-500 text-white px-4 py-2 rounded mt-4"
+                    onClick={() => handleNextQuestion(quizData.questions[currentQuestionIndex])}
+                >
                     Next
                 </button>
-            </>
+            </div>
         );
     } else {
         clearInterval(secondsIntervalId);
         clearInterval(minutesIntervalId);
-        return <ResultComponent score={score} answers={chosenAnswers} quizData={quizData} timeSpent={(minutes < 10 ? '0' + minutes : minutes) + ':' + (seconds < 10 ? '0' + seconds : seconds)}/>;
+        return (
+            <ResultComponent 
+                score={score} 
+                answers={chosenAnswers} 
+                quizData={quizData} 
+                timeSpent={(minutes < 10 ? '0' + minutes : minutes) + ':' + (seconds < 10 ? '0' + seconds : seconds)}
+            />
+        );
     }
 };

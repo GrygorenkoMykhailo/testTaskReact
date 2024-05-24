@@ -17,12 +17,8 @@ export const EditQuizQuestionComponent = (props: { questionData: QuizQuestionTyp
         setCorrectAnswerIndex(index);
     }, [props.questionData]);
 
-    if(!quizData){
-        return( 
-            <>
-                ErrorComponent
-            </>
-        )
+    if (!quizData) {
+        return <>ErrorComponent</>;
     }
 
     const handleChangeAnswerText = (index: number) => {
@@ -37,13 +33,13 @@ export const EditQuizQuestionComponent = (props: { questionData: QuizQuestionTyp
             updatedQuiz.questions[indexOfQuestion].answers = updatedAnswers;
             localStorage.setItem(props.testName.replace(/\s/g, ""), JSON.stringify(updatedQuiz));
             props.updateCallback(updatedQuiz);
-        }   
+        }
     };
 
     const handleChangeCorrectAnswer = (index: number) => {
         setCorrectAnswerIndex(index);
 
-        const updatedQuiz = { ...quizData }; 
+        const updatedQuiz = { ...quizData };
         const indexOfQuestion = updatedQuiz.questions.findIndex((q) => q.id === props.questionData.id);
         updatedQuiz.questions[indexOfQuestion].correctAnswer = answers[index] || "";
         localStorage.setItem(props.testName.replace(/\s/g, ""), JSON.stringify(updatedQuiz));
@@ -63,21 +59,21 @@ export const EditQuizQuestionComponent = (props: { questionData: QuizQuestionTyp
 
     const handlePointsChange = () => {
         const newPoints = pointsRef.current?.value;
-        if(newPoints){
-            const updatedQuiz = { ...quizData};
+        if (newPoints) {
+            const updatedQuiz = { ...quizData };
             const indexOfQuestion = updatedQuiz.questions.findIndex((q) => q.id === props.questionData.id);
             updatedQuiz.questions[indexOfQuestion].points = +newPoints;
             localStorage.setItem(props.testName.replace(/\s/g, ""), JSON.stringify(updatedQuiz));
             props.updateCallback(updatedQuiz);
         }
-    }
+    };
 
     const handleDeleteQuestion = () => {
-        const updatedQuiz = {...quizData};
+        const updatedQuiz = { ...quizData };
         updatedQuiz.questions = updatedQuiz.questions.filter((q) => q.id !== props.questionData.id);
         localStorage.setItem(props.testName.replace(/\s/g, ""), JSON.stringify(updatedQuiz));
         props.updateCallback(updatedQuiz);
-    }
+    };
 
     const handleAddAnswer = () => {
         const updatedQuiz = { ...quizData };
@@ -90,48 +86,86 @@ export const EditQuizQuestionComponent = (props: { questionData: QuizQuestionTyp
     const handleDeleteAnswer = (index: number) => {
         const updatedQuiz = { ...quizData };
         const indexOfQuestion = updatedQuiz.questions.findIndex((q) => q.id === props.questionData.id);
-        updatedQuiz.questions[indexOfQuestion].answers = updatedQuiz.questions[indexOfQuestion].answers.filter((_ ,i) => i !== index);
+        updatedQuiz.questions[indexOfQuestion].answers = updatedQuiz.questions[indexOfQuestion].answers.filter((_, i) => i !== index);
         setAnswers(prevAnswers => prevAnswers.filter((_, i) => i !== index));
         localStorage.setItem(props.testName.replace(/\s/g, ""), JSON.stringify(updatedQuiz));
     };
 
     return (
-        <>
-            <div>Question: 
+        <div className="mb-8 p-4 border rounded shadow-md bg-white">
+            <div className="mb-4">
+                <label className="block font-semibold mb-2">Question:</label>
                 <input 
                     type="text" 
                     defaultValue={props.questionData.question} 
                     ref={questionRef}
-                /> 
-                <button onClick={handleChangeQuestion}>Save</button>
-                <button onClick={handleDeleteQuestion}>Delete</button>
+                    className="w-full border rounded py-2 px-3 mb-2"
+                />
+                <div className="flex space-x-2">
+                    <button 
+                        onClick={handleChangeQuestion} 
+                        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                    >
+                        Save
+                    </button>
+                    <button 
+                        onClick={handleDeleteQuestion} 
+                        className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                    >
+                        Delete
+                    </button>
+                </div>
             </div>
             {answers.map((a, i) => (
-                <div key={i}>
+                <div key={i} className="mb-4 flex items-center space-x-2">
                     <input
                         type="text"
                         defaultValue={a}
                         ref={el => (inputRefs.current[i] = el)}
+                        className="w-full border rounded py-2 px-3"
                     />
                     <input
                         type="radio"
                         name={`isCorrect-${props.questionData.id}`}
                         checked={correctAnswerIndex === i}
                         onChange={() => handleChangeCorrectAnswer(i)}
+                        className="mr-2"
                     />
-                    <button onClick={() => handleChangeAnswerText(i)}>Save</button>
-                    <button onClick={() => handleDeleteAnswer(i)}>Delete</button>
+                    <button 
+                        onClick={() => handleChangeAnswerText(i)} 
+                        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+                    >
+                        Save
+                    </button>
+                    <button 
+                        onClick={() => handleDeleteAnswer(i)} 
+                        className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                    >
+                        Delete
+                    </button>
                 </div>
             ))}
-            <button onClick={handleAddAnswer}>+</button>
-            <div>Points for correct answer: 
+            <button 
+                onClick={handleAddAnswer} 
+                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+            >
+                +
+            </button>
+            <div className="mt-4">
+                <label className="block font-semibold mb-2">Points for correct answer:</label>
                 <input 
                     type="number" 
                     defaultValue={props.questionData.points}
                     ref={pointsRef}
+                    className="w-full border rounded py-2 px-3 mb-2"
                 />
-                <button onClick={handlePointsChange}>Save</button>
+                <button 
+                    onClick={handlePointsChange} 
+                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                >
+                    Save
+                </button>
             </div>
-        </>
+        </div>
     );
 };
