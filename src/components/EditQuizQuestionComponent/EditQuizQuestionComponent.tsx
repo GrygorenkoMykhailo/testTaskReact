@@ -7,7 +7,7 @@ export const EditQuizQuestionComponent = (props: { questionData: QuizQuestionTyp
     const questionRef = useRef<HTMLInputElement | null>(null);
     const pointsRef = useRef<HTMLInputElement | null>(null);
     const [correctAnswerIndex, setCorrectAnswerIndex] = useState<number | null>(null);
-    const [quizData] = useQuiz(props.testName.replace(/\s/g, ""));
+    const [quizData, setQuizData] = useQuiz(props.testName.replace(/\s/g, ""));
     const [answers, setAnswers] = useState<string[]>(props.questionData.answers);
 
     useEffect(() => {
@@ -70,14 +70,15 @@ export const EditQuizQuestionComponent = (props: { questionData: QuizQuestionTyp
 
     const handleDeleteQuestion = () => {
         const updatedQuiz = { ...quizData };
-        updatedQuiz.questions = updatedQuiz.questions.filter((q) => q.id !== props.questionData.id);
+        updatedQuiz.questions = updatedQuiz.questions.filter(q => q.id !== props.questionData.id);
         localStorage.setItem(props.testName.replace(/\s/g, ""), JSON.stringify(updatedQuiz));
+        setQuizData(updatedQuiz);
         props.updateCallback(updatedQuiz);
     };
 
     const handleAddAnswer = () => {
         const updatedQuiz = { ...quizData };
-        const indexOfQuestion = updatedQuiz.questions.findIndex((q) => q.id === props.questionData.id);
+        const indexOfQuestion = updatedQuiz.questions.findIndex(q => q.id === props.questionData.id);
         updatedQuiz.questions[indexOfQuestion].answers.push("");
         setAnswers(prevAnswers => [...prevAnswers, ""]);
         localStorage.setItem(props.testName.replace(/\s/g, ""), JSON.stringify(updatedQuiz));
@@ -90,7 +91,8 @@ export const EditQuizQuestionComponent = (props: { questionData: QuizQuestionTyp
         setAnswers(prevAnswers => prevAnswers.filter((_, i) => i !== index));
         localStorage.setItem(props.testName.replace(/\s/g, ""), JSON.stringify(updatedQuiz));
     };
-
+    console.log('in children');
+    console.log(props.questionData)
     return (
         <div className="mb-8 p-4 border rounded shadow-md bg-white">
             <div className="mb-4">

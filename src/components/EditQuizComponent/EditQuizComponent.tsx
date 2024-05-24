@@ -64,10 +64,10 @@ export const EditQuizComponent = () => {
                     Go to home page
                 </Link>
             </div>
-            {quizData.questions.map((q, i) => (
+            {quizData.questions.map((q) => (
                 <EditQuizQuestionComponent 
                     questionData={q} 
-                    key={i} 
+                    key={q.id} 
                     testName={name} 
                     updateCallback={updateCallback}
                 />
