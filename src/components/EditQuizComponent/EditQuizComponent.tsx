@@ -45,7 +45,7 @@ export const EditQuizComponent = () => {
                 />
             <button onClick={handleChangeQuizName}>Save</button>
             <Link to="/">Go to home page</Link>
-            {quizData.questions.map((q, i) => <EditQuizQuestionComponent questionData={q} key={i} testName={name}/>)}
+            {quizData.questions.map((q, i) => <EditQuizQuestionComponent questionData={q} key={i} testName={name} updateCallback={updateCallback}/>)}
             <AddQuizQuestionComponent quizData={quizData} updateCallback={updateCallback}/>
         </div>
     )
