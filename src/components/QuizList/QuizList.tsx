@@ -4,13 +4,19 @@ import { useEffect, useState, useRef } from "react";
 
 export const QuizList = () => {
     const [names, setNames] = useState<string []>([]);
+    const [searchName, setSearchName] = useState('');
     const navigate = useNavigate();
     const newQuizNameRef = useRef<HTMLInputElement | null>(null);
 
     useEffect(() => {
-        const currentNames = JSON.parse(localStorage.names);
-        setNames(currentNames)
-    }, [])
+        const currentNames = JSON.parse(localStorage.names) as string[];
+        if(searchName === ""){
+            setNames(currentNames)
+        }else{
+            const filteredNames = currentNames.filter(n => n.toLowerCase().match("^" + searchName));
+            setNames(filteredNames);
+        }     
+    }, [searchName])
 
     const handleDeleteClick = (name: string) => {
         localStorage.removeItem(name.replace(/\s/g, ""));
@@ -35,6 +41,15 @@ export const QuizList = () => {
 
     return (
         <div>
+            <div>
+                <p>Search Quiz:</p>
+                <input 
+                    type="text" 
+                    name="" 
+                    id="" 
+                    onChange={(e) => setSearchName(e.target.value.toLowerCase())}
+                    />
+            </div>
             {names.map((n, i) => {
                 const quiz: QuizType | null = JSON.parse(localStorage[n]);
 

@@ -90,7 +90,7 @@ export const EditQuizQuestionComponent = (props: { questionData: QuizQuestionTyp
     const handleDeleteAnswer = (index: number) => {
         const updatedQuiz = { ...quizData };
         const indexOfQuestion = updatedQuiz.questions.findIndex((q) => q.id === props.questionData.id);
-        updatedQuiz.questions[indexOfQuestion].answers = updatedQuiz.questions[indexOfQuestion].answers.filter((a,i) => i !== index);
+        updatedQuiz.questions[indexOfQuestion].answers = updatedQuiz.questions[indexOfQuestion].answers.filter((_ ,i) => i !== index);
         setAnswers(prevAnswers => prevAnswers.filter((_, i) => i !== index));
         localStorage.setItem(props.testName.replace(/\s/g, ""), JSON.stringify(updatedQuiz));
     };
@@ -123,7 +123,7 @@ export const EditQuizQuestionComponent = (props: { questionData: QuizQuestionTyp
                     <button onClick={() => handleDeleteAnswer(i)}>Delete</button>
                 </div>
             ))}
-            <button onClick={handleAddAnswer}>Add Answer</button>
+            <button onClick={handleAddAnswer}>+</button>
             <div>Points for correct answer: 
                 <input 
                     type="number" 
