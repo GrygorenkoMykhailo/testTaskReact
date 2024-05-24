@@ -50,35 +50,39 @@ export const QuizListComponent = () => {
                 />
             </div>
             {names.map((n, i) => {
-                const quiz: QuizType | null = JSON.parse(localStorage[n]);
-
-                if (quiz) {
-                    return (
-                        <div key={i} className="border rounded p-4 mb-4">
-                            <h2 className="text-xl font-semibold">{quiz.name}</h2>
-                            <div className="mt-2">
-                                <button 
-                                    className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
-                                    onClick={() => navigate(`/quiz/${quiz.name}`.replace(/\s/g, ""))}
-                                >
-                                    Pass Quiz
-                                </button>
-                                <button 
-                                    className="bg-green-500 text-white px-4 py-2 rounded mr-2"
-                                    onClick={() => navigate(`/edit/${quiz.name}`.replace(/\s/g, ""))}
-                                >
-                                    Edit Quiz
-                                </button>
-                                <button 
-                                    className="bg-red-500 text-white px-4 py-2 rounded"
-                                    onClick={() => handleDeleteClick(quiz.name)}
-                                >
-                                    Delete Quiz
-                                </button>
+                const quizJSON = localStorage[n];
+                if(quizJSON){
+                    const quiz: QuizType | null = JSON.parse(quizJSON);
+                    if (quiz) {
+                        return (
+                            <div key={i} className="border rounded p-4 mb-4">
+                                <h2 className="text-xl font-semibold">{quiz.name}</h2>
+                                <div className="mt-2">
+                                    <button 
+                                        className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
+                                        onClick={() => navigate(`/quiz/${quiz.name}`.replace(/\s/g, ""))}
+                                    >
+                                        Pass Quiz
+                                    </button>
+                                    <button 
+                                        className="bg-green-500 text-white px-4 py-2 rounded mr-2"
+                                        onClick={() => navigate(`/edit/${quiz.name}`.replace(/\s/g, ""))}
+                                    >
+                                        Edit Quiz
+                                    </button>
+                                    <button 
+                                        className="bg-red-500 text-white px-4 py-2 rounded"
+                                        onClick={() => handleDeleteClick(quiz.name)}
+                                    >
+                                        Delete Quiz
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                    );
-                }  
+                        );
+                    }else{
+                        return <>Loading...</>
+                    }  
+                }
             })}
             <div className="flex items-center mb-4">
                 <input 
