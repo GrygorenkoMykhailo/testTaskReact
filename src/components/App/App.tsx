@@ -11,7 +11,7 @@ const getStartQuizes = () => {
   
     names.forEach(async (n) => {
       try{
-        const response = await fetch('/public/' + n + '.json');
+        const response = await fetch(n + '.json');
   
         if(!response.ok) 
           throw new Error("failed to fetch local files");
@@ -36,7 +36,7 @@ const router = createBrowserRouter(
 )
 
 export const App = () => {
-  if(localStorage.length === 0){
+  if(!localStorage["HtmlCssQuiz"] || !localStorage["JavascriptQuiz"] || !localStorage["ReactQuiz"]){
     getStartQuizes();
   }
   return (
