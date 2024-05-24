@@ -1,10 +1,13 @@
-import { QuizQuestionType, QuizType } from "../../types";
+import { QuizQuestionType } from "../../types";
 import { useRef, useState, useEffect } from "react";
+import { useQuiz } from "../../hooks";
 
 export const EditQuizQuestionComponent = (props: { questionData: QuizQuestionType, testName: string }) => {
     const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
     const questionRef = useRef<HTMLInputElement | null>(null);
+    const pointsRef = useRef<HTMLInputElement | null>(null);
     const [correctAnswerIndex, setCorrectAnswerIndex] = useState<number | null>(null);
+    const quizData = useQuiz(props.testName.replace(/\s/g, ""));
 
     useEffect(() => {
         const index = props.questionData.answers.findIndex(
@@ -13,43 +16,58 @@ export const EditQuizQuestionComponent = (props: { questionData: QuizQuestionTyp
         setCorrectAnswerIndex(index);
     }, [props.questionData]);
 
+    if(!quizData){
+        return( 
+            <>
+                ErrorComponent
+            </>
+        )
+    }
+
     const handleChangeAnswerText = (index: number) => {
-        const localStorageQuizJSON = localStorage.getItem(props.testName.replace(/\s/g, ""));
-        if (localStorageQuizJSON) {
-            const localStorageQuiz = JSON.parse(localStorageQuizJSON) as QuizType;
-            const newAnswer = inputRefs.current[index]?.value;
-            if (newAnswer) {
-                localStorageQuiz.questions[props.questionData.id - 1].answers[index] = newAnswer;
-            }
-            localStorage.setItem(props.testName.replace(/\s/g, ""), JSON.stringify(localStorageQuiz));
-        }
+        const newAnswer = inputRefs.current[index]?.value;
+        if (newAnswer) {
+            const updatedQuiz = { ...quizData };
+            updatedQuiz.questions[props.questionData.id - 1].answers[index] = newAnswer;
+            localStorage.setItem(props.testName.replace(/\s/g, ""), JSON.stringify(updatedQuiz));
+        }   
     };
 
     const handleChangeCorrectAnswer = (index: number) => {
         setCorrectAnswerIndex(index);
-        const localStorageQuizJSON = localStorage.getItem(props.testName.replace(/\s/g, ""));
-        if (localStorageQuizJSON) {
-            const localStorageQuiz = JSON.parse(localStorageQuizJSON) as QuizType;
-            localStorageQuiz.questions[props.questionData.id - 1].correctAnswer = inputRefs.current[index]?.value || "";
-            localStorage.setItem(props.testName.replace(/\s/g, ""), JSON.stringify(localStorageQuiz));
-        }
+        const updatedQuiz = { ...quizData };
+        updatedQuiz.questions[props.questionData.id - 1].correctAnswer = inputRefs.current[index]?.value || "";
+        localStorage.setItem(props.testName.replace(/\s/g, ""), JSON.stringify(updatedQuiz));
     };
 
     const handleChangeQuestion = () => {
-        const localStorageQuizJSON = localStorage.getItem(props.testName.replace(/\s/g, ""));
-        if (localStorageQuizJSON) {
-            const localStorageQuiz = JSON.parse(localStorageQuizJSON) as QuizType;
-            const newQuestion = questionRef.current?.value;
+        const newQuestion = questionRef.current?.value;
             if (newQuestion) {
-                localStorageQuiz.questions[props.questionData.id - 1].question = newQuestion;
-            }
-            localStorage.setItem(props.testName.replace(/\s/g, ""), JSON.stringify(localStorageQuiz));
+                const updatedQuiz = { ...quizData };
+                updatedQuiz.questions[props.questionData.id - 1].question = newQuestion;
+                localStorage.setItem(props.testName.replace(/\s/g, ""), JSON.stringify(updatedQuiz));
+        }
+    };
+
+    const handlePointsChange = () => {
+        const newPoints = pointsRef.current?.value;
+        if(newPoints){
+            const updatedQuiz = { ... quizData};
+            updatedQuiz.questions[props.questionData.id - 1].points = +newPoints;
+            localStorage.setItem(props.testName.replace(/\s/g, ""), JSON.stringify(updatedQuiz));
         }
     }
 
     return (
         <>
-            <div>Question: <input type="text" defaultValue={props.questionData.question} ref={questionRef}/> <button onClick={() => handleChangeQuestion()}>Save</button> </div>
+            <div>Question: 
+                <input 
+                    type="text" 
+                    defaultValue={props.questionData.question} 
+                    ref={questionRef}
+                    /> 
+                <button onClick={handleChangeQuestion}>Save</button>
+            </div>
             {props.questionData.answers.map((a, i) => (
                 <div key={i}>
                     <input
@@ -60,16 +78,24 @@ export const EditQuizQuestionComponent = (props: { questionData: QuizQuestionTyp
                     <input
                         type="radio"
                         name={`isCorrect-${props.questionData.id}`}
-                        defaultChecked={correctAnswerIndex === i}
+                        checked={correctAnswerIndex === i}
+                        onChange={() => handleChangeCorrectAnswer(i)}
                     />
                     <button onClick={() =>  {
-                            handleChangeCorrectAnswer(i)
-                            handleChangeAnswerText(i)
+                            handleChangeCorrectAnswer(i);
+                            handleChangeAnswerText(i);
                         }
                     }>Save</button>
                 </div>
             ))}
-            <p>Points for correct answer: {props.questionData.points}</p>
+                <div>Points for correct answer: 
+                    <input 
+                        type="number" 
+                        defaultValue={props.questionData.points}
+                        ref={pointsRef}
+                        />
+                    <button onClick={handlePointsChange}>Save</button>
+                </div>
         </>
     );
 };
