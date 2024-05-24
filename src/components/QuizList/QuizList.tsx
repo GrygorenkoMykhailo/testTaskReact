@@ -36,15 +36,18 @@ export const QuizList = () => {
     return (
         <div>
             {names.map((n, i) => {
-                const quiz: QuizType = JSON.parse(localStorage[n]);
-                return (
-                    <div key={i}>
-                        <h2>{quiz.name}</h2>
-                        <button onClick={() => navigate(`/quiz/${quiz.name}`.replace(/\s/g, ""))}>Pass Quiz</button>
-                        <button onClick={() => navigate(`/edit/${quiz.name}`.replace(/\s/g, ""))}>Edit Quiz</button>
-                        <button onClick={() => handleDeleteClick(quiz.name)}>Delete Quiz</button>
-                    </div>
-                )
+                const quiz: QuizType | null = JSON.parse(localStorage[n]);
+
+                if(quiz){
+                    return (
+                        <div key={i}>
+                            <h2>{quiz.name}</h2>
+                            <button onClick={() => navigate(`/quiz/${quiz.name}`.replace(/\s/g, ""))}>Pass Quiz</button>
+                            <button onClick={() => navigate(`/edit/${quiz.name}`.replace(/\s/g, ""))}>Edit Quiz</button>
+                            <button onClick={() => handleDeleteClick(quiz.name)}>Delete Quiz</button>
+                        </div>
+                    )
+                }  
             })}
             <div>
                 <input 
