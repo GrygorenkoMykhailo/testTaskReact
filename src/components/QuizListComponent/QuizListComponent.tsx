@@ -1,14 +1,13 @@
 import { QuizType } from "../../types";
 import { useNavigate } from "react-router";
 import { useEffect, useRef, useState } from "react";
-import { useQuizNames, useQuizes } from "../../hooks";
+import { useQuizNames } from "../../hooks";
 
 export const QuizListComponent = () => {
     const [searchName, setSearchName] = useState('');
     const navigate = useNavigate();
     const newQuizNameRef = useRef<HTMLInputElement | null>(null);
     const [names, setNames] = useQuizNames();
-    const [quizes] = useQuizes(names || []);
 
     useEffect(() => {
         if (searchName === "") {
@@ -21,7 +20,7 @@ export const QuizListComponent = () => {
         }
     }, [searchName]);
 
-    if (!quizes) {
+    if (!names) {
         return <>Loading...</>;
     }
 
@@ -56,25 +55,25 @@ export const QuizListComponent = () => {
                     onChange={(e) => setSearchName(e.target.value.toLowerCase())}
                 />
             </div>
-            {quizes.map((quiz, i) => (
+            {names.map((name, i) => (
                 <div key={i} className="border rounded p-4 mb-4">
-                    <h2 className="text-xl font-semibold">{quiz.name}</h2>
+                    <h2 className="text-xl font-semibold">{name}</h2>
                     <div className="mt-2">
                         <button
                             className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
-                            onClick={() => navigate(`/quiz/${quiz.name.replace(/\s/g, "")}`)}
+                            onClick={() => navigate(`/quiz/${name.replace(/\s/g, "")}`)}
                         >
                             Pass Quiz
                         </button>
                         <button
                             className="bg-green-500 text-white px-4 py-2 rounded mr-2"
-                            onClick={() => navigate(`/edit/${quiz.name.replace(/\s/g, "")}`)}
+                            onClick={() => navigate(`/edit/${name.replace(/\s/g, "")}`)}
                         >
                             Edit Quiz
                         </button>
                         <button
                             className="bg-red-500 text-white px-4 py-2 rounded"
-                            onClick={() => handleDeleteClick(quiz.name)}
+                            onClick={() => handleDeleteClick(name)}
                         >
                             Delete Quiz
                         </button>
