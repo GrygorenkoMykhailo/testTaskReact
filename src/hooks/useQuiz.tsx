@@ -12,6 +12,8 @@ export const useQuiz = (name: string | null | undefined) => {
         }     
     }, [name]);
 
-    if(name === null) return null;
-    return quizData;
+    const updateQuizData = (newQuiz: QuizType | null) => {
+        setQuizData(newQuiz);
+    }
+    return [quizData, updateQuizData] as [QuizType | null, (newQuiz: QuizType | null) => void];
 }

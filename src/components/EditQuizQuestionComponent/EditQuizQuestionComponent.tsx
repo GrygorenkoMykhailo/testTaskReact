@@ -7,7 +7,7 @@ export const EditQuizQuestionComponent = (props: { questionData: QuizQuestionTyp
     const questionRef = useRef<HTMLInputElement | null>(null);
     const pointsRef = useRef<HTMLInputElement | null>(null);
     const [correctAnswerIndex, setCorrectAnswerIndex] = useState<number | null>(null);
-    const quizData = useQuiz(props.testName.replace(/\s/g, ""));
+    const [quizData, setQuizData] = useQuiz(props.testName.replace(/\s/g, ""));
 
     useEffect(() => {
         const index = props.questionData.answers.findIndex(

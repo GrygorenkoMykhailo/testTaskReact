@@ -7,7 +7,7 @@ import { useQuiz } from "../../hooks";
 
 export const Quiz = () => {
     const name = useParams().name;
-    const quizData: QuizType | null = useQuiz(name);
+    const [quizData, setQuizData ] = useQuiz(name);
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [currentAnswer, setCurrentAnswer] = useState("");

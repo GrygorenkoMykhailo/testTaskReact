@@ -9,7 +9,7 @@ import { useNavigate } from "react-router";
 
 export const EditQuizComponent = () => {
     const name = useParams().name;
-    const quizData: QuizType | null = useQuiz(name);
+    const [quizData, setQuizData] = useQuiz(name);
     const quizNameRef = useRef<HTMLInputElement | null>(null);
     const navigate = useNavigate();
 
