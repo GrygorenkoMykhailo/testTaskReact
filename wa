@@ -1,0 +1,107 @@
+[33mcommit 75f8a546362e89d78412a4812f6d8761060f5266[m[33m ([m[1;36mHEAD -> [m[1;32mdev[m[33m)[m
+Author: MykhailoGrygorenko <osnova2021@gmail.com>
+Date:   Fri May 24 08:47:16 2024 +0300
+
+    changing quiz name
+
+[33mcommit 21a7c77bef1a8da7686565a5a37ba33acafc62e2[m
+Author: MykhailoGrygorenko <osnova2021@gmail.com>
+Date:   Fri May 24 08:09:00 2024 +0300
+
+    adding new quiz
+
+[33mcommit 0d00790a638af469b89454653a4226d0fe74f48e[m
+Author: MykhailoGrygorenko <osnova2021@gmail.com>
+Date:   Fri May 24 07:56:07 2024 +0300
+
+    quiz deletion
+
+[33mcommit ef79ab92ca43aef17c0264b440eff1a2cdd3d67a[m
+Author: MykhailoGrygorenko <osnova2021@gmail.com>
+Date:   Fri May 24 07:33:52 2024 +0300
+
+    editing points
+
+[33mcommit a8aa795591ae8eaea3240ae991fa0e4771791364[m[33m ([m[1;31morigin/dev[m[33m)[m
+Author: MykhailoGrygorenko <osnova2021@gmail.com>
+Date:   Thu May 23 22:04:20 2024 +0300
+
+    editing question, answers
+
+[33mcommit 102c4245a047fa6f260c80ce0f1ee39da4b34894[m
+Author: MykhailoGrygorenko <osnova2021@gmail.com>
+Date:   Thu May 23 20:26:32 2024 +0300
+
+    quiz timer
+
+[33mcommit c4d12d61820e8b4ad56a3e70ee1cbb23996e439a[m
+Author: MykhailoGrygorenko <osnova2021@gmail.com>
+Date:   Thu May 23 19:54:42 2024 +0300
+
+    result page with answers
+
+[33mcommit 5d436031999a6c667ff39223c716a267eff601c5[m
+Author: MykhailoGrygorenko <osnova2021@gmail.com>
+Date:   Thu May 23 19:21:22 2024 +0300
+
+    custom points for correct answer
+
+[33mcommit d328a6a0fec7acbd58c93fc78ed81f421df3f4e5[m
+Author: MykhailoGrygorenko <osnova2021@gmail.com>
+Date:   Thu May 23 19:04:41 2024 +0300
+
+    score count
+
+[33mcommit b1c53aa1e3c0ca4de289553875a76d247c13d093[m
+Author: MykhailoGrygorenko <osnova2021@gmail.com>
+Date:   Thu May 23 18:07:56 2024 +0300
+
+    next question transition
+
+[33mcommit 7a0ee09481b4b44dba1aa8e9a065d4b4d21e7058[m
+Author: MykhailoGrygorenko <osnova2021@gmail.com>
+Date:   Thu May 23 17:38:53 2024 +0300
+
+    answers display
+
+[33mcommit 4ab94fa5feba832bc115d0d41baa0f659d5c4e3f[m
+Author: MykhailoGrygorenko <osnova2021@gmail.com>
+Date:   Thu May 23 17:23:57 2024 +0300
+
+    added basic routing
+
+[33mcommit fc937137ec1a65e1355390bc298351348387b6c1[m
+Author: MykhailoGrygorenko <osnova2021@gmail.com>
+Date:   Thu May 23 17:03:38 2024 +0300
+
+    added quiz list on main page
+
+[33mcommit c6b9cab838ead0ef77232c403ea8b77d46b33276[m
+Author: MykhailoGrygorenko <osnova2021@gmail.com>
+Date:   Thu May 23 16:34:12 2024 +0300
+
+    added start data fetching
+
+[33mcommit c16ce88e17d0f7b7f196542decb5256ae702b0d5[m
+Author: MykhailoGrygorenko <osnova2021@gmail.com>
+Date:   Thu May 23 16:03:00 2024 +0300
+
+    updated quiz files, quiz types
+
+[33mcommit 05bd8b721a399f1d5b47fec3b333c475e10753fe[m
+Author: MykhailoGrygorenko <osnova2021@gmail.com>
+Date:   Thu May 23 15:57:07 2024 +0300
+
+    added quizes to static folder
+
+[33mcommit 443c37f915c7eaca8e42a776af4b56593056c535[m
+Author: MykhailoGrygorenko <osnova2021@gmail.com>
+Date:   Thu May 23 15:48:32 2024 +0300
+
+    init structure and quiz
+
+[33mcommit c0bf09e8d5235d30f54eaa149d1b599b44c3c73c[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m
+Author: MykhailoGrygorenko <osnova2021@gmail.com>
+Date:   Thu May 23 15:28:15 2024 +0300
+
+    initial commit
