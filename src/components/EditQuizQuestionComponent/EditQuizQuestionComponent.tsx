@@ -91,8 +91,6 @@ export const EditQuizQuestionComponent = (props: { questionData: QuizQuestionTyp
         setAnswers(prevAnswers => prevAnswers.filter((_, i) => i !== index));
         localStorage.setItem(props.testName.replace(/\s/g, ""), JSON.stringify(updatedQuiz));
     };
-    console.log('in children');
-    console.log(props.questionData)
     return (
         <div className="mb-8 p-4 border rounded shadow-md bg-white">
             <div className="mb-4">
