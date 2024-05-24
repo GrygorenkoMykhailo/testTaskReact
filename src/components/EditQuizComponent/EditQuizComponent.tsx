@@ -1,11 +1,11 @@
 import { useParams } from "react-router";
-import { QuizType } from "../../types";
 import { useQuiz } from "../../hooks";
 import { EditQuizQuestionComponent } from "../EditQuizQuestionComponent";
 import { Link } from "react-router-dom";
 import { AddQuizQuestionComponent } from "../AddQuizQuestionComponent";
 import { useRef } from "react";
 import { useNavigate } from "react-router";
+import { QuizType } from "../../types";
 
 export const EditQuizComponent = () => {
     const name = useParams().name;
@@ -32,6 +32,10 @@ export const EditQuizComponent = () => {
         }
     }
 
+    const updateCallback = (newQuizData: QuizType) => {
+        setQuizData(newQuizData);
+    }
+
     return (
         <div>
             <input 
@@ -42,7 +46,7 @@ export const EditQuizComponent = () => {
             <button onClick={handleChangeQuizName}>Save</button>
             <Link to="/">Go to home page</Link>
             {quizData.questions.map((q, i) => <EditQuizQuestionComponent questionData={q} key={i} testName={name}/>)}
-            <AddQuizQuestionComponent quizData={quizData}/>
+            <AddQuizQuestionComponent quizData={quizData} updateCallback={updateCallback}/>
         </div>
     )
 }   

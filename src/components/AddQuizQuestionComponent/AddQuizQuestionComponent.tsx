@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { QuizType } from "../../types";
 
-export const AddQuizQuestionComponent = (props: {quizData: QuizType}) => {
+export const AddQuizQuestionComponent = (props: {quizData: QuizType, updateCallback: (newQuizData: QuizType) => void}) => {
     const [id, setId] = useState(0);
     const [answers, setAnswers] = useState<string[]>(["",]);
     const [correctAnswerIndex, setCorrectAnswerIndex] = useState<number | null>(null);
@@ -27,11 +27,22 @@ export const AddQuizQuestionComponent = (props: {quizData: QuizType}) => {
         const newAnswers = answerRefs.current.map(ref => ref?.value || "");
         const correctAnswer = correctAnswerIndex !== null ? newAnswers[correctAnswerIndex] : null;
         const points = pointsRef.current?.value;
+        
+        const newQuizData = { ...props.quizData };
 
-        console.log("New Question:", newQuestion);
-        console.log("Answers:", newAnswers);
-        console.log("Correct Answer:", correctAnswer);
-        console.log("Points: ", points);
+        if(newQuizData !== null){
+            if(newQuestion && correctAnswer && points){
+                newQuizData.questions.push({
+                    id: id,
+                    question: newQuestion,
+                    answers: newAnswers,
+                    correctAnswer: correctAnswer,
+                    points: +points,
+                })
+            }
+            localStorage.setItem(props.quizData.name.replace(/\s/g, ""), JSON.stringify(newQuizData));
+            props.updateCallback(newQuizData);
+        }
     }
 
     return (

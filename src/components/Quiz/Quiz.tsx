@@ -1,4 +1,4 @@
-import { QuizQuestionType, QuizType } from "../../types";
+import { QuizQuestionType } from "../../types";
 import { useParams } from "react-router";
 import { QuizQuestion } from "../QuizQuestion";
 import { useState, useEffect } from "react";
@@ -7,7 +7,7 @@ import { useQuiz } from "../../hooks";
 
 export const Quiz = () => {
     const name = useParams().name;
-    const [quizData, setQuizData ] = useQuiz(name);
+    const [quizData] = useQuiz(name);
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [currentAnswer, setCurrentAnswer] = useState("");
