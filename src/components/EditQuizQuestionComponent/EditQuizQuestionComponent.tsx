@@ -1,13 +1,11 @@
 import { useRef, useState, useEffect } from "react";
-import { QuizQuestionType, QuizType } from "../../types";
-import { useQuiz } from "../../hooks";
+import { QuizQuestionType } from "../../types";
 
-export const EditQuizQuestionComponent = (props: { questionData: QuizQuestionType, testName: string, updateCallback: (newQuizData: QuizType) => void }) => {
+export const EditQuizQuestionComponent = (props: { questionData: QuizQuestionType, updateCallback: (updatedQuestion: QuizQuestionType) => void, deleteCallback: (questionId: number) => void }) => {
     const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
     const questionRef = useRef<HTMLInputElement | null>(null);
     const pointsRef = useRef<HTMLInputElement | null>(null);
     const [correctAnswerIndex, setCorrectAnswerIndex] = useState<number | null>(null);
-    const [quizData, setQuizData] = useQuiz(props.testName.replace(/\s/g, ""));
     const [answers, setAnswers] = useState<string[]>(props.questionData.answers);
 
     useEffect(() => {
@@ -17,80 +15,79 @@ export const EditQuizQuestionComponent = (props: { questionData: QuizQuestionTyp
         setCorrectAnswerIndex(index);
     }, [props.questionData]);
 
-    if (!quizData) {
-        return <>Loading...</>;
-    }
-
     const handleChangeAnswerText = (index: number) => {
         const newAnswer = inputRefs.current[index]?.value;
-        if (newAnswer) {
+        if (newAnswer !== undefined) {
             const updatedAnswers = [...answers];
             updatedAnswers[index] = newAnswer;
             setAnswers(updatedAnswers);
 
-            const updatedQuiz = { ...quizData };
-            const indexOfQuestion = updatedQuiz.questions.findIndex((q) => q.id === props.questionData.id);
-            updatedQuiz.questions[indexOfQuestion].answers = updatedAnswers;
-            localStorage.setItem(props.testName.replace(/\s/g, ""), JSON.stringify(updatedQuiz));
-            props.updateCallback(updatedQuiz);
+            const updatedQuestion = {
+                ...props.questionData,
+                answers: updatedAnswers,
+            };
+            props.updateCallback(updatedQuestion);
         }
     };
 
     const handleChangeCorrectAnswer = (index: number) => {
         setCorrectAnswerIndex(index);
 
-        const updatedQuiz = { ...quizData };
-        const indexOfQuestion = updatedQuiz.questions.findIndex((q) => q.id === props.questionData.id);
-        updatedQuiz.questions[indexOfQuestion].correctAnswer = answers[index] || "";
-        localStorage.setItem(props.testName.replace(/\s/g, ""), JSON.stringify(updatedQuiz));
-        props.updateCallback(updatedQuiz);
+        const updatedQuestion = {
+            ...props.questionData,
+            correctAnswer: answers[index] || "",
+        };
+        props.updateCallback(updatedQuestion);
     };
 
     const handleChangeQuestion = () => {
         const newQuestion = questionRef.current?.value;
         if (newQuestion) {
-            const updatedQuiz = { ...quizData };
-            const indexOfQuestion = updatedQuiz.questions.findIndex((q) => q.id === props.questionData.id);
-            updatedQuiz.questions[indexOfQuestion].question = newQuestion;
-            localStorage.setItem(props.testName.replace(/\s/g, ""), JSON.stringify(updatedQuiz));
-            props.updateCallback(updatedQuiz);
+            const updatedQuestion = {
+                ...props.questionData,
+                question: newQuestion,
+            };
+            props.updateCallback(updatedQuestion);
         }
     };
 
     const handlePointsChange = () => {
         const newPoints = pointsRef.current?.value;
         if (newPoints) {
-            const updatedQuiz = { ...quizData };
-            const indexOfQuestion = updatedQuiz.questions.findIndex((q) => q.id === props.questionData.id);
-            updatedQuiz.questions[indexOfQuestion].points = +newPoints;
-            localStorage.setItem(props.testName.replace(/\s/g, ""), JSON.stringify(updatedQuiz));
-            props.updateCallback(updatedQuiz);
+            const updatedQuestion = {
+                ...props.questionData,
+                points: +newPoints,
+            };
+            props.updateCallback(updatedQuestion);
         }
     };
 
     const handleDeleteQuestion = () => {
-        const updatedQuiz = { ...quizData };
-        updatedQuiz.questions = updatedQuiz.questions.filter(q => q.id !== props.questionData.id);
-        localStorage.setItem(props.testName.replace(/\s/g, ""), JSON.stringify(updatedQuiz));
-        setQuizData(updatedQuiz);
-        props.updateCallback(updatedQuiz);
+        props.deleteCallback(props.questionData.id);
     };
 
     const handleAddAnswer = () => {
-        const updatedQuiz = { ...quizData };
-        const indexOfQuestion = updatedQuiz.questions.findIndex(q => q.id === props.questionData.id);
-        updatedQuiz.questions[indexOfQuestion].answers.push("");
-        setAnswers(prevAnswers => [...prevAnswers, ""]);
-        localStorage.setItem(props.testName.replace(/\s/g, ""), JSON.stringify(updatedQuiz));
+        const updatedAnswers = [...answers, ""];
+        setAnswers(updatedAnswers);
+
+        const updatedQuestion = {
+            ...props.questionData,
+            answers: updatedAnswers,
+        };
+        props.updateCallback(updatedQuestion);
     };
 
     const handleDeleteAnswer = (index: number) => {
-        const updatedQuiz = { ...quizData };
-        const indexOfQuestion = updatedQuiz.questions.findIndex((q) => q.id === props.questionData.id);
-        updatedQuiz.questions[indexOfQuestion].answers = updatedQuiz.questions[indexOfQuestion].answers.filter((_, i) => i !== index);
-        setAnswers(prevAnswers => prevAnswers.filter((_, i) => i !== index));
-        localStorage.setItem(props.testName.replace(/\s/g, ""), JSON.stringify(updatedQuiz));
+        const updatedAnswers = answers.filter((_, i) => i !== index);
+        setAnswers(updatedAnswers);
+
+        const updatedQuestion = {
+            ...props.questionData,
+            answers: updatedAnswers,
+        };
+        props.updateCallback(updatedQuestion);
     };
+
     return (
         <div className="mb-8 p-4 border rounded shadow-md bg-white">
             <div className="mb-4">

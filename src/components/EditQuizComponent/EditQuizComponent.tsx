@@ -1,47 +1,65 @@
 import { useParams } from "react-router";
-import { useQuiz } from "../../hooks";
 import { EditQuizQuestionComponent } from "../EditQuizQuestionComponent";
 import { Link } from "react-router-dom";
 import { AddQuizQuestionComponent } from "../AddQuizQuestionComponent";
 import { useRef } from "react";
-import { useNavigate } from "react-router";
-import { QuizType } from "../../types";
+import { QuizQuestionType } from "../../types";
+import { useQuiz } from "../../hooks";
 
 export const EditQuizComponent = () => {
-    const name = useParams().name;
+    const id = useParams().id;
 
-    if(!name || !JSON.parse(localStorage.names).find((n: string) => n === name)){
+    if (!id || !JSON.parse(localStorage.ids).find((i: number) => i === +id)) {
         throw new Error();
     }
 
-    const [quizData, setQuizData] = useQuiz(name);
+    const [quizData, setQuizData] = useQuiz(+id);
     const quizNameRef = useRef<HTMLInputElement | null>(null);
-    const navigate = useNavigate();
 
     const handleChangeQuizName = () => {
         const newName = quizNameRef.current?.value;
-        if (newName) {
-            if(quizData){
-                const quiz = { ...quizData };
-                localStorage.removeItem(quizData.name.replace(/\s/g, ""));
-                let names: string[] = JSON.parse(localStorage.names);
-                names = names.filter(n => n !== quiz.name.replace(/\s/g, ""));
-                names.push(newName.replace(/\s/g, ""));
-                localStorage.names = JSON.stringify(names);
-                quiz.name = newName;
-                localStorage.setItem(newName.replace(/\s/g, ""), JSON.stringify(quiz));   
-                navigate("/edit/" + newName.replace(/\s/g, ""));
-            }    
+        if (newName && quizData) {
+            const updatedQuiz = { ...quizData, name: newName };
+            localStorage.setItem(quizData.id.toString(), JSON.stringify(updatedQuiz));
+            setQuizData(updatedQuiz);
         }
     };
 
-    const updateCallback = (newQuizData: QuizType) => {
-        setQuizData(newQuizData);
+    const handleUpdateQuestion = (updatedQuestion: QuizQuestionType) => {
+        if (quizData) {
+            const updatedQuestions = quizData.questions.map(q =>
+                q.id === updatedQuestion.id ? updatedQuestion : q
+            );
+            const updatedQuiz = { ...quizData, questions: updatedQuestions };
+            localStorage.setItem(quizData.id.toString(), JSON.stringify(updatedQuiz));
+            setQuizData(updatedQuiz);
+        }
     };
 
-    if(!quizData){
-        return <>Loading...</>
+    const handleDeleteQuestion = (questionId: number) => {
+        if (quizData) {
+            const updatedQuestions = quizData.questions.filter(q => q.id !== questionId);
+            const updatedQuiz = { ...quizData, questions: updatedQuestions };
+            localStorage.setItem(quizData.id.toString(), JSON.stringify(updatedQuiz));
+            setQuizData(updatedQuiz);
+        }
+    };
+
+    const handleAddQuestion = (newQuestion: QuizQuestionType) => {
+        if (quizData) {
+            const updatedQuiz = {
+                ...quizData,
+                questions: [...quizData.questions, newQuestion]
+            };
+            localStorage.setItem(quizData.id.toString(), JSON.stringify(updatedQuiz));
+            setQuizData(updatedQuiz);
+        }
+    };
+
+    if (!quizData) {
+        return <>Loading...</>;
     }
+
     return (
         <div className="max-w-2xl mx-auto p-4 bg-white rounded shadow-md">
             <div className="mb-4">
@@ -68,11 +86,11 @@ export const EditQuizComponent = () => {
                 <EditQuizQuestionComponent 
                     questionData={q} 
                     key={q.id} 
-                    testName={name} 
-                    updateCallback={updateCallback}
+                    updateCallback={handleUpdateQuestion}
+                    deleteCallback={handleDeleteQuestion}
                 />
             ))}
-            <AddQuizQuestionComponent quizData={quizData} updateCallback={updateCallback} />
+            <AddQuizQuestionComponent quizData={quizData} updateCallback={handleAddQuestion} />
         </div>
     );
 };

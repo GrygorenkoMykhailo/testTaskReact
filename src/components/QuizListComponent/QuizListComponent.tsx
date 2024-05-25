@@ -1,47 +1,88 @@
 import { QuizType } from "../../types";
 import { useNavigate } from "react-router";
 import { useEffect, useRef, useState } from "react";
-import { useQuizNames } from "../../hooks";
+import { useQuizes } from "../../hooks";
 
 export const QuizListComponent = () => {
     const [searchName, setSearchName] = useState('');
     const navigate = useNavigate();
     const newQuizNameRef = useRef<HTMLInputElement | null>(null);
-    const [names, setNames] = useQuizNames();
+    const [quizes, setQuizes] = useQuizes();
+    const [id, setId] = useState(2);
+
+    useEffect(() => {
+        let maxId = id;
+        quizes?.forEach(q => {
+            if(q.id > maxId){
+                maxId = q.id;
+            }
+        })
+        setId(++maxId);
+    }, [quizes])
 
     useEffect(() => {
         if (searchName === "") {
-            setNames(JSON.parse(localStorage.names) as string[]);
+            const quizIdsJSON = localStorage.ids;
+            if(quizIdsJSON){
+                const quizesTemp: QuizType[] = [];
+                const quizIds = JSON.parse(quizIdsJSON) as number[];
+
+                quizIds.forEach(id => {
+                    const quizJSON = localStorage[id];
+                    if(quizJSON){
+                        const quiz = JSON.parse(quizJSON);
+                        quizesTemp.push(quiz);
+                    }
+                });       
+                setQuizes(quizesTemp);
+        }
         } else {
-            const filteredNames = names?.filter(n => n.toLowerCase().match("^" + searchName));
-            if (filteredNames) {
-                setNames(filteredNames);
-            }
+            if(quizes){
+                let filteredQuizes = [ ...quizes ];
+                filteredQuizes = filteredQuizes.filter(q => q.name.toLowerCase().match("^" + searchName));
+                setQuizes(filteredQuizes);
+            } 
         }
     }, [searchName]);
 
-    if (!names) {
+    if (!quizes) {
         return <>Loading...</>;
     }
 
-    const handleDeleteClick = (name: string) => {
-        localStorage.removeItem(name.replace(/\s/g, ""));
-        const newNames = names?.filter(k => k !== name.replace(/\s/g, "")) || [];
-        localStorage.names = JSON.stringify(newNames);
-        setNames(newNames);
+    const handleDeleteClick = (id: number) => {
+        localStorage.removeItem(id + '');
+        let newQuizes = [...quizes];
+        newQuizes = newQuizes.filter(q => q.id !== id);
+
+        const idsJSON = localStorage.ids;
+            if(idsJSON){
+                let ids = JSON.parse(idsJSON) as number[];
+                ids = ids.filter(i => i !== id);
+                localStorage.ids = JSON.stringify(ids);
+            }
+
+        setQuizes(newQuizes);
     }
 
     const handleCreateQuiz = () => {
         const quizName = newQuizNameRef.current?.value;
         if (quizName) {
             const newQuiz: QuizType = {
+                id: id,
                 name: quizName,
                 questions: []
             }
-            localStorage.setItem(quizName.replace(/\s/g, ""), JSON.stringify(newQuiz));
-            const newNames = [...(names || []), quizName];
-            localStorage.names = JSON.stringify(newNames);
-            setNames(newNames);
+            localStorage.setItem(newQuiz.id + '', JSON.stringify(newQuiz));
+
+            const idsJSON = localStorage.ids;
+            if(idsJSON){
+                const ids = JSON.parse(idsJSON) as number[];
+                ids.push(id);
+                localStorage.ids = JSON.stringify(ids);
+            }
+
+            const newQuizes = [...quizes, newQuiz];
+            setQuizes(newQuizes);
         }
     }
 
@@ -55,25 +96,25 @@ export const QuizListComponent = () => {
                     onChange={(e) => setSearchName(e.target.value.toLowerCase())}
                 />
             </div>
-            {names.map((name, i) => (
-                <div key={i} className="border rounded p-4 mb-4">
-                    <h2 className="text-xl font-semibold">{name}</h2>
+            {quizes.map((q) => (
+                <div key={q.id} className="border rounded p-4 mb-4">
+                    <h2 className="text-xl font-semibold">{q.name}</h2>
                     <div className="mt-2">
                         <button
                             className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
-                            onClick={() => navigate(`/quiz/${name.replace(/\s/g, "")}`)}
+                            onClick={() => navigate(`/quiz/${q.id}`)}
                         >
                             Pass Quiz
                         </button>
                         <button
                             className="bg-green-500 text-white px-4 py-2 rounded mr-2"
-                            onClick={() => navigate(`/edit/${name.replace(/\s/g, "")}`)}
+                            onClick={() => navigate(`/edit/${q.id}`)}
                         >
                             Edit Quiz
                         </button>
                         <button
                             className="bg-red-500 text-white px-4 py-2 rounded"
-                            onClick={() => handleDeleteClick(name)}
+                            onClick={() => handleDeleteClick(q.id)}
                         >
                             Delete Quiz
                         </button>

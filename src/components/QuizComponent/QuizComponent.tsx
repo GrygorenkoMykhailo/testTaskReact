@@ -6,13 +6,12 @@ import { ResultComponent } from "../ResultComponent";
 import { useQuiz } from "../../hooks";
 
 export const QuizComponent = () => {
-    const name = useParams().name;
+    const id = useParams().id;
 
-    if(!name || !JSON.parse(localStorage.names).find((n: string) => n === name)){
+    if(!id || !JSON.parse(localStorage.ids).find((i: number) => i === +id)){
         throw new Error();
     }
-
-    const [quizData] = useQuiz(name);
+    const [quizData] = useQuiz(+id);
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [currentAnswer, setCurrentAnswer] = useState("");
@@ -43,7 +42,7 @@ export const QuizComponent = () => {
         }
         setChosenAnswers(prev => [...prev, currentAnswer]);
     };
-    if(quizData === null){
+    if(!quizData){
         return <>Loading...</>
     }
     else{

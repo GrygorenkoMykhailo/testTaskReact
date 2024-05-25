@@ -7,10 +7,10 @@ import { EditQuizComponent } from "../EditQuizComponent";
 import { ErrorComponent } from "../../ErrorComponent";
 
 const getStartQuizes = () => {
-    const names = ["HtmlCssQuiz", "JavascriptQuiz", "ReactQuiz"];
-    localStorage.names = JSON.stringify(names);
+    const ids = [1, 2, 3];
+    localStorage.ids = JSON.stringify(ids);
   
-    names.forEach(async (n) => {
+    ids.forEach(async (n) => {
       try{
         const response = await fetch(n + '.json');
   
@@ -18,7 +18,7 @@ const getStartQuizes = () => {
           throw new Error("failed to fetch local files");
   
         const data: QuizType = await response.json();
-        localStorage.setItem(n, JSON.stringify(data));
+        localStorage.setItem(n + '', JSON.stringify(data));
       }
       catch(ex){
         throw new Error("failed to fetch local files");
@@ -30,14 +30,14 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <>
           <Route path="/" element= {<QuizListComponent/>} errorElement={<ErrorComponent/>}></Route>
-          <Route path="/quiz/:name" element= {<QuizComponent/>} errorElement={<ErrorComponent/>}/>    
-          <Route path="/edit/:name" element= {<EditQuizComponent/>} errorElement={<ErrorComponent/>}/>    
+          <Route path="/quiz/:id" element= {<QuizComponent/>} errorElement={<ErrorComponent/>}/>    
+          <Route path="/edit/:id" element= {<EditQuizComponent/>} errorElement={<ErrorComponent/>}/>      
     </>
   )
 )
 
 export const App = () => {
-  if(!localStorage["HtmlCssQuiz"] || !localStorage["JavascriptQuiz"] || !localStorage["ReactQuiz"]){
+  if(!localStorage["1"]){
     getStartQuizes();
   }
   return (

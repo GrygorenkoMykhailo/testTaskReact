@@ -1,19 +1,20 @@
-import { QuizType } from "../types";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react"
+import { QuizType } from "../types"
 
-export const useQuiz = (name: string | null | undefined) => {
-    const [quizData, setQuizData] = useState<QuizType | null>(null);
+export const useQuiz = (id: number) => {
+    const [quiz, setQuiz] = useState<QuizType | null>();
 
     useEffect(() => {
-        const quizes: string[] = JSON.parse(localStorage.names);
-        if (name && quizes.find(q => q.replace(/\s/g, "").toLowerCase() === name.toLowerCase())) {
-            const data: QuizType = JSON.parse(localStorage[name]);
-            setQuizData(data);
-        }     
-    }, [name]);
+        const quizJSON = localStorage[id];
+        if(quizJSON){
+            const quiz = JSON.parse(quizJSON);
+            setQuiz(quiz);
+        }             
+    }, [id])
 
-    const updateQuizData = (newQuiz: QuizType | null) => {
-        setQuizData(newQuiz);
+    const updateQuiz = (newQuiz: QuizType) => {
+        setQuiz(newQuiz);
     }
-    return [quizData, updateQuizData] as [QuizType | null, (newQuiz: QuizType | null) => void];
+
+    return [quiz, updateQuiz] as [(QuizType | null), (newQuiz: QuizType) => void];
 }
